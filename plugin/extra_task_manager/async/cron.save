@@ -1,0 +1,55 @@
+{
+ "AsyncTaskId": 0,
+ "CronInfo": {
+  "CronId": 0,
+  "CronSchedule": "* * * * * *",
+  "CronState": 1
+ },
+ "TriggerInfo": {
+  "TriggerId": 0,
+  "TriggerById": 0,
+  "TriggerByState": 0,
+  "TriggerState": 0,
+  "TNum": 0,
+  "RemainTimes": 0
+ },
+ "Type": 1,
+ "State": 0,
+ "Request": {
+  "plugin": "cmd",
+  "cmd": "ls"
+ },
+ "Reply": {
+  "result_msg": "结果",
+  "result_table": {
+   "header": {
+    "row": [
+     "header1",
+     "header2"
+    ]
+   },
+   "body": [
+    {
+     "row": [
+      "body11",
+      "body12"
+     ]
+    },
+    {
+     "row": [
+      "body21",
+      "body22"
+     ]
+    }
+   ],
+   "footer": {
+    "row": [
+     "footer1",
+     "footer1"
+    ]
+   }
+  }
+ },
+ "FinishTime": "0001-01-01T00:00:00Z",
+ "NotifyMsg": ""
+}

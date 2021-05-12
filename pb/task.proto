@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package pb;
+
+//import "github.com/golang/protobuf/ptypes/timestamp/timestamp.proto";
+
+service Commander {
+    rpc CommonCmd(CommonCmdRequest) returns (CommonCmdReply) {};
+    rpc ApplyTransfer(TransferInfo) returns (TransferInfo) {};
+    rpc Upload(stream Chunks) returns (TransferInfo) {};
+}
+
+message Row {
+    repeated string row = 1;
+}
+
+message Table {
+    Row header = 1;
+    repeated Row body = 2;
+    Row footer = 3;
+}
+
+message CommonCmdRequest {
+    CmdType type = 1;
+    string plugin = 2;
+    string cmd = 3;
+    repeated string sub_cmd = 4;
+    repeated string flags = 5;
+    map<string, string> args = 6;
+
+    enum CmdType{
+        COMMON_CMD = 0;
+        FILE_TRANSFER = 1;
+        ASYNC_TASK = 2;
+    }
+}
+
+message CommonCmdReply {
+    ExeState status = 1;
+    string result_msg = 2;
+    Table result_table = 3;
+
+    enum ExeState {
+        Ok = 0;
+        Err = 1;
+    }
+}
+
+message Chunks {
+    int32 transfer_id = 1;
+    int64 size = 2;
+    bytes Content = 3;
+}
+
+message TransferInfo {
+    TransferType type = 1;
+    TransferState state = 2;
+    string file_name = 3;
+    string file_path = 4;
+    int32 transfer_id = 5;
+    string error_msg = 6;
+    string md5 = 7;
+
+    enum TransferType{
+        Upload = 0;
+        Download = 1;
+    }
+
+    enum TransferState{
+        Apply = 0;
+        Begin = 1;
+        Complete = 2;
+        Error = 3;
+    }
+}

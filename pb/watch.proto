@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package pb;
+
+//import "github.com/golang/protobuf/ptypes/timestamp/timestamp.proto";
+
+service Watch {
+    rpc Register (RegRequest) returns (RegReply) {}
+    rpc HeartBeat (stream Ping) returns (stream Pong) {
+    };
+}
+
+message RegRequest {
+    Items item = 1;
+    string local_addr = 2;
+    string desc = 3;
+}
+
+message RegReply {
+    RegState state = 1;
+    string uni_code = 2;
+
+    enum RegState {
+        Agree = 0;
+        Refuse = 1;
+    }
+}
+
+message Ping {
+    Items item = 1;
+    PingState ping_state = 2;
+
+    enum PingState {
+        Active = 0;
+        Shutdown = 1;
+        Sleep = 2;
+        Quit = 3;
+    }
+}
+
+message Pong {
+    Items item = 1;
+    PongState pong_state = 2;
+
+    enum PongState {
+        Received = 0;
+        Shutdown = 1;
+        Error = 2;
+    }
+}
+
+enum Items {
+    MainServ = 0;
+    MySQL = 1;
+}

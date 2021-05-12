@@ -1,0 +1,71 @@
+#prompt:
+type: "Root"
+text: "root"
+desc: "根"
+yess:
+  show:
+    type: "Plugin"
+    desc: "展示"
+    yess:
+      net:
+        type: "Cmd"
+        desc: "查看网络"
+      load:
+        type: "Cmd"
+        desc: "查看负载"
+      processlist:
+        type: "Cmd"
+        desc: "查看进程"
+        yess:
+          "--sortby=":
+            type: "ArgKey"
+            desc: "排序"
+            yess:
+              cpu:
+                type: "ArgValue"
+                desc: "根据cpu使用情况排序"
+              mem:
+                type: "ArgValue"
+                desc: "根据内存使用情况排序"
+          "--limit=":
+            type: "ArgKey"
+            desc: "限制显示数量"
+      version:
+        type: "Version"
+        desc: "查看版本信息"
+  async:
+    type: "Prefix"
+    desc: "提供异步任务相关操作"
+    yess:
+      run:
+        type: "Cmd"
+        desc: "启动异步任务管理器"
+      state:
+        type: "Cmd"
+        desc: "查看当前任务列表"
+      get:
+        type: "Cmd"
+        desc: "获取异步任务执行的结果"
+      pop:
+        type: "Cmd"
+        desc: "获取异步任务执行的结果, 并从列表中删除该任务"
+      cron:
+        type: "Cmd"
+        desc: "查看定时任务的详细信息"
+    yess:
+      "-del":
+        type: "Flag"
+        desc: "删除定时任务"
+      trigger:
+        type: "Cmd"
+        desc: "查看触发器任务的详细信息"
+    yess:
+      "-del":
+        type: "Flag"
+        desc: "删除触发器任务"
+      version:
+        type: "Cmd"
+        desc: "查看版本信息"
+      help:
+        type: "Cmd"
+        desc: "查看帮助信息, 并加载智能提示"
